@@ -1,19 +1,37 @@
 package com.blackbeast.booklibrary.domain;
 
-import org.springframework.stereotype.Component;
+import javax.persistence.*;
 
-@Component
+@Entity
+//@Table(name = "BookName")
 public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
+    //@Column(name = "BookTitle")
     private String title;
     private int year;
     private String publisher;
     private String isbn;
 
     public Book(){
-        this.title = "Ogniem i mieczem";
-        this.year = 1972;
-        this.publisher = "Wydawca XYZ";
-        this.isbn = "AZ43434";
+
+    }
+
+    public Book(String title, int year, String publisher, String isbn) {
+        this.title = title;
+        this.year = year;
+        this.publisher = publisher;
+        this.isbn = isbn;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
