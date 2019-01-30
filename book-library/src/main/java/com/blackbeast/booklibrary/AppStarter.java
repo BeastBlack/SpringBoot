@@ -1,8 +1,9 @@
 package com.blackbeast.booklibrary;
 
 import com.blackbeast.booklibrary.domain.Book;
+import com.blackbeast.booklibrary.repository.BookRepository;
+import com.blackbeast.booklibrary.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
@@ -11,21 +12,22 @@ import org.springframework.stereotype.Component;
 @PropertySource("classpath:custom.properties")
 public class AppStarter implements CommandLineRunner {
 
-    /*@Autowired
-    Book book;
-
-    Book book2;
-
-    @Value("${spring.pagesize:25}")
-    Integer size;*/
+    @Autowired
+    BookService bookService;
 
     @Override
     public void run(String... args) throws Exception {
-
+        init();
     }
 
-    /*@Autowired
-    public void setBook2(Book book2) {
-        this.book2 = book2;
-    }*/
+    public void init(){
+        Book book = new Book("Ogniem i mieczem", 2000, "PWN", "78535635634", "Henryk Sieniewicz");
+        bookService.saveBook(book);
+
+        Book book2 = new Book("Potop", 1990, "PWN", "90254385733", "Henryk Sieniewicz");
+        bookService.saveBook(book2);
+
+        Book book3 = new Book("Pan Wołodyjowski", 1999, "PWN", "54671724546", "Henryk Sieniewicz");
+        bookService.saveBook(book3);
+    }
 }
