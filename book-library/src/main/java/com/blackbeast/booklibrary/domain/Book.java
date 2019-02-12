@@ -12,13 +12,13 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @NotNull
+    @NotNull(message = "Tytuł nie może być pusty")
     @Size(min=2, message = "Tytuł musi posiadać co najmniej 2 litery")
     private String title;
 
-    @NotNull
+    @NotNull(message = "Rok wydania nie może być pusty")
     @Range(min=1, max=9999, message = "Rok wydania musi być z przedziału 1 - 9999")
-    private int year;
+    private Integer year;
     private String publisher;
     private String isbn;
 
@@ -53,11 +53,11 @@ public class Book {
         this.title = title;
     }
 
-    public int getYear() {
+    public Integer getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
