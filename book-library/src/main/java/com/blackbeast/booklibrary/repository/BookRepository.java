@@ -85,4 +85,10 @@ public class BookRepository {
         return typedQuery.getResultList();
     }
 
+    public Collection<Book> getBooksByTitle(String title){
+        return em.createQuery("from Book b WHERE LOWER(b.title) LIKE CONCAT('%',:title,'%')", Book.class)
+                .setParameter("title", title.toLowerCase())
+                .getResultList();
+    }
+
 }

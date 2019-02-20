@@ -67,4 +67,11 @@ public class BookService {
     public List<Book> getBooks(Integer year, String publisher, String isbn) {
         return new ArrayList<>(bookRepository.getBooks(year, publisher, isbn));
     }
+
+    public List<Book> getBooksByTitle(String title) {
+        if(title != null)
+            return new ArrayList(bookRepository.getBooksByTitle(title));
+        else
+            return null;
+    }
 }
