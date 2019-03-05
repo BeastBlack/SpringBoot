@@ -45,5 +45,8 @@ public class AppStarter implements CommandLineRunner {
 
         userService.createUser("user", "pass");
         userService.addRoleToUser("user", "USER");
+
+        userService.createUser("dev", "pass");
+        userService.addRoleToUser("dev", "DEV");
     }
 }

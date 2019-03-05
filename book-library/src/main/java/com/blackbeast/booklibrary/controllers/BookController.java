@@ -19,6 +19,11 @@ public class BookController {
     @Autowired
     BookService bookService;
 
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String redirectToMainPage() {
+        return "redirect:/books";
+    }
+
     @RequestMapping(value = "/books", method = RequestMethod.GET)
     public String getBooks(Model model){
         List<Book> books = bookService.getBooks();

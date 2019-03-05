@@ -11,6 +11,11 @@
 </head>
 <body>
     <div class="container">
+        <div class="float-right">
+            <form action="#" th:action="@{/logout}" method="post">
+                <button type="submit" class="btn btn-primary">Wyloguj</button>
+            </form>
+        </div>
         <table class="table">
             <thead class="thead-dark">
                 <th>Tytuł książki</th>
@@ -33,7 +38,9 @@
                 </tr>
             </tbody>
         </table>
-        <a th:href="${'/books/add'}">Dodaj książkę</a>
+        <div class="row">
+            <a th:href="${'/books/add'}">Dodaj książkę</a>
+        </div>
     </div>
 </body>
 </html>
