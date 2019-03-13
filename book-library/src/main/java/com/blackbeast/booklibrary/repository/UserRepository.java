@@ -31,10 +31,10 @@ public class UserRepository {
             User user = getUser(username);
 
             if(user != null) {
-                user.addRole(role);
+                //user.addRole(role);
                 role.setUser(user);
                 em.persist(role);
-                em.merge(user);
+                //em.merge(user);
             }
         }
     }

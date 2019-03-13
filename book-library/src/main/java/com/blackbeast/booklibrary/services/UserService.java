@@ -28,4 +28,8 @@ public class UserService {
             userRepository.addRoleToUser(username, role);
         }
     }
+
+    public User getUser(String username) {
+        return userRepository.getUser(username);
+    }
 }

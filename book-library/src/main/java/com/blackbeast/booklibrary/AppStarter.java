@@ -21,8 +21,8 @@ public class AppStarter implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        init();
-        initUsers();
+        //init();
+        //initUsers();
     }
 
     public void init(){
