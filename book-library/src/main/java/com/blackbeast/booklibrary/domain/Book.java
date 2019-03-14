@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Range;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Entity
 public class Book {
@@ -24,6 +25,9 @@ public class Book {
 
     @OneToOne
     private Author author;
+
+    @OneToMany(mappedBy = "hiredBook", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Hire> hires;
 
     public Book(){
 
