@@ -1,7 +1,9 @@
 package com.blackbeast.booklibrary.controllers;
 
 import com.blackbeast.booklibrary.domain.Book;
+import com.blackbeast.booklibrary.domain.User;
 import com.blackbeast.booklibrary.services.BookService;
+import com.blackbeast.booklibrary.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,9 @@ public class BookController {
     @Autowired
     BookService bookService;
 
+    @Autowired
+    UserService userService;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String redirectToMainPage() {
         return "redirect:/books";
@@ -27,7 +32,9 @@ public class BookController {
     @RequestMapping(value = "/books", method = RequestMethod.GET)
     public String getBooks(Model model){
         List<Book> books = bookService.getBooks();
+        User loggedUser = userService.getLoggedUser();
         model.addAttribute("books", books);
+        model.addAttribute("user", loggedUser);
         return "books";
     }
 

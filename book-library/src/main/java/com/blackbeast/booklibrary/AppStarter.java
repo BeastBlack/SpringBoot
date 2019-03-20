@@ -3,6 +3,7 @@ package com.blackbeast.booklibrary;
 import com.blackbeast.booklibrary.domain.Author;
 import com.blackbeast.booklibrary.domain.Book;
 import com.blackbeast.booklibrary.services.BookService;
+import com.blackbeast.booklibrary.services.HireService;
 import com.blackbeast.booklibrary.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -19,10 +20,12 @@ public class AppStarter implements CommandLineRunner {
     @Autowired
     UserService userService;
 
+    @Autowired
+    HireService hireService;
+
     @Override
     public void run(String... args) throws Exception {
-        //init();
-        //initUsers();
+
     }
 
     public void init(){
