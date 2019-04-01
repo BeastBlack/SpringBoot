@@ -37,7 +37,11 @@
                     <td th:text=${element.publisher}></td>
                     <td th:text=${element.isbn}></td>
                     <td th:text=${element.author.name}></td>
-                    <td><a th:href="${'/books/hires/' + element.id}">Pokaż</a></td>
+                    <td>
+                        <a th:href="${'/books/hire/' + element.id}">Wypożycz</a>
+                        <br>
+                        <a th:href="${'/books/hires/' + element.id}">Pokaż</a>
+                    </td>
                     <td><a th:href="${'/books/edit/' + element.id}">Edytuj</a></td>
                     <td><a th:href="${'/books/delete/' + element.id}">Usuń</a></td>
                 </tr>

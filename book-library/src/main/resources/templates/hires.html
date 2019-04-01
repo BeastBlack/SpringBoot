@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Wypożyczenia</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}" />
+
+    <script th:src="@{/webjars/jquery/3.3.1-1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container">
+    <div class="float-left">
+        <p th:text="${'Książka: ' + book.author.name + ', ' + book.title}"></p>
+    </div>
+    <div class="float-right">
+        <form action="#" th:action="@{/logout}" method="post">
+            <button type="submit" class="btn btn-primary">Wyloguj</button>
+        </form>
+    </div>
+    <table class="table">
+        <thead class="thead-dark">
+            <th>Wypożyczający</th>
+            <th>Data wypożyczenia</th>
+            <th>Termin zwrotu</th>
+            <th>Data zwrotu</th>
+        </thead>
+        <tbody th:each="hire : ${hires}">
+        <tr>
+            <td th:text="${hire.hireUser.firstName + ' ' + hire.hireUser.lastName}"></td>
+            <td th:text="${#dates.format(hire.hireDate, 'dd-MM-yyyy')}"></td>
+            <td th:text="${#dates.format(hire.plannedGiveBackDate, 'dd-MM-yyyy')}"></td>
+            <td th:text="${hire.realGiveBackDate != null} ? ${#dates.format(hire.realGiveBackDate, 'dd-MM-yyyy')} : ${'Nie zwrócono'}"></td></tr>
+        </tbody>
+    </table>
+    <div class="row">
+        <a th:href="${'/books'}">Wróć</a>
+    </div>
+</div>
+</body>
+</html>
