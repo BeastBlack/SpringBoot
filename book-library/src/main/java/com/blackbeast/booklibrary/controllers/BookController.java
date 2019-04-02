@@ -3,6 +3,7 @@ package com.blackbeast.booklibrary.controllers;
 import com.blackbeast.booklibrary.domain.Book;
 import com.blackbeast.booklibrary.domain.User;
 import com.blackbeast.booklibrary.dto.BookDto;
+import com.blackbeast.booklibrary.dto.UserDto;
 import com.blackbeast.booklibrary.services.BookService;
 import com.blackbeast.booklibrary.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class BookController {
     @RequestMapping(value = "/books", method = RequestMethod.GET)
     public String getBooks(Model model){
         List<BookDto> books = bookService.convert(bookService.getBooks());
-        User loggedUser = userService.getLoggedUser();
+        UserDto loggedUser = userService.convert(userService.getLoggedUser());
         model.addAttribute("books", books);
         model.addAttribute("user", loggedUser);
         return "books";

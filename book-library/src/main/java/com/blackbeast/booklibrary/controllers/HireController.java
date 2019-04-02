@@ -4,6 +4,7 @@ import com.blackbeast.booklibrary.domain.Book;
 import com.blackbeast.booklibrary.domain.Hire;
 import com.blackbeast.booklibrary.domain.User;
 import com.blackbeast.booklibrary.dto.BookDto;
+import com.blackbeast.booklibrary.dto.UserDto;
 import com.blackbeast.booklibrary.services.BookService;
 import com.blackbeast.booklibrary.services.HireService;
 import com.blackbeast.booklibrary.services.UserService;
@@ -41,7 +42,7 @@ public class HireController {
     public String hire(Model model, @PathVariable("id") Integer id){
         Hire hire = hireService.hireBook(id);
         List<BookDto> books = bookService.convert(bookService.getBooks());
-        User loggedUser = userService.getLoggedUser();
+        UserDto loggedUser = userService.convert(userService.getLoggedUser());
         model.addAttribute("books", books);
         model.addAttribute("user", loggedUser);
         model.addAttribute("hireStatus", hire != null);
@@ -50,5 +51,17 @@ public class HireController {
             model.addAttribute("giveBackDate", hire.getPlannedGiveBackDate());
 
         return "books";
+    }
+
+    @RequestMapping(value = "/user/hires", method = RequestMethod.GET)
+    public String loggedUserHires(Model model){
+        User loggedUser = userService.getLoggedUser();
+        UserDto loggedUserDto = userService.convert(loggedUser);
+
+        List<Hire> hires = hireService.getHiresByHireUserId(loggedUser.getId());
+        model.addAttribute("user", loggedUserDto);
+        model.addAttribute("hires", hires);
+
+        return "hires-own";
     }
 }

@@ -26,4 +26,6 @@ public interface HireRepository extends JpaRepository<Hire, Long> {
 
     @Transactional
     Hire save(Hire hire);
+
+    List<Hire> findByHireUser_Id(Integer id);
 }

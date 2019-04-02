@@ -11,14 +11,15 @@
 </head>
 <body>
     <div th:if="${hireStatus == true}" class="alert alert-success" role="alert">
-        <a th:text="${'Wypożyczyłeś książkę. Data zwrotu: ' + #dates.format(giveBackDate, 'dd-MM-yyyy') + '.'}"></a>
+        <a th:text="${'Książka została wypożyczona. Data zwrotu: ' + #dates.format(giveBackDate, 'dd-MM-yyyy') + '.'}"></a>
     </div>
     <div th:if="${hireStatus == false}" class="alert alert-danger" role="alert">
         <a>Wybrana książka jest już wypożyczona.</a>
     </div>
     <div class="container">
         <div class="float-left">
-            <p th:text="${'Witaj, ' + user.firstName + ' ' + user.lastName + ' (' + user.username + ')'}"></p>
+            <a th:text="${'Witaj, ' + user.fullName + ' (' + user.username + ')'}"></a>
+            <a th:href="${'/user/hires'}">Moje wypożyczenia</a>
         </div>
         <div class="float-right">
             <form action="#" th:action="@{/logout}" method="post">

@@ -2,6 +2,7 @@ package com.blackbeast.booklibrary.services;
 
 import com.blackbeast.booklibrary.domain.Role;
 import com.blackbeast.booklibrary.domain.User;
+import com.blackbeast.booklibrary.dto.UserDto;
 import com.blackbeast.booklibrary.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -43,5 +44,15 @@ public class UserService {
             return getUser(username);
         }else
             return null;
+    }
+
+    public UserDto convert(User user){
+        if(user == null)
+            return null;
+
+        UserDto userDto = new UserDto();
+        userDto.setUsername(user.getUsername());
+        userDto.setFullName(user.getFirstName() + " " + user.getLastName());
+        return userDto;
     }
 }
