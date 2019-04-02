@@ -34,20 +34,27 @@ public class HireService {
         return hireRepository.findByHiredBook_Id(id);
     }
 
-    public void save(Integer bookId) {
-        Book book = bookRepository.getBook(bookId);
-        User user = userService.getLoggedUser();
+    public Hire hireBook(Integer bookId) {
+        boolean isBookAvailable = hireRepository.findByHiredBookIdNotGiveBack(bookId).isEmpty();
 
-        if(book != null && user != null){
-            Hire hire = new Hire();
-            hire.setHiredBook(book);
-            hire.setHireUser(user);
+        if(isBookAvailable) {
+            Book book = bookRepository.getBook(bookId);
+            User user = userService.getLoggedUser();
 
-            Date hireDate = new Date();
-            hire.setHireDate(hireDate);
-            hire.setPlannedGiveBackDate(DateUtils.addDaysToDate(hireDate, giveBackDays));
+            if (book != null && user != null) {
+                Hire hire = new Hire();
+                hire.setHiredBook(book);
+                hire.setHireUser(user);
 
-            hireRepository.save(hire);
+                Date hireDate = new Date();
+                hire.setHireDate(hireDate);
+                hire.setPlannedGiveBackDate(DateUtils.addDaysToDate(hireDate, giveBackDays));
+
+                hireRepository.save(hire);
+                return hire;
+            }
         }
+
+        return null;
     }
 }

@@ -10,6 +10,12 @@
     <script th:src="@{/webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
 </head>
 <body>
+    <div th:if="${hireStatus == true}" class="alert alert-success" role="alert">
+        <a th:text="${'Wypożyczyłeś książkę. Data zwrotu: ' + #dates.format(giveBackDate, 'dd-MM-yyyy') + '.'}"></a>
+    </div>
+    <div th:if="${hireStatus == false}" class="alert alert-danger" role="alert">
+        <a>Wybrana książka jest już wypożyczona.</a>
+    </div>
     <div class="container">
         <div class="float-left">
             <p th:text="${'Witaj, ' + user.firstName + ' ' + user.lastName + ' (' + user.username + ')'}"></p>
@@ -31,14 +37,15 @@
                 <th></th>
             </thead>
             <tbody th:each="element : ${books}">
-                <tr>
+                <tr th:classappend="${element.hireStatus} ? table-success : table-light">
                     <td th:text=${element.title}></td>
                     <td th:text=${element.year}></td>
                     <td th:text=${element.publisher}></td>
                     <td th:text=${element.isbn}></td>
-                    <td th:text=${element.author.name}></td>
+                    <td th:text=${element.author}></td>
                     <td>
-                        <a th:href="${'/books/hire/' + element.id}">Wypożycz</a>
+                        <a th:if="${element.hireStatus == true}" th:href="${'/books/hire/' + element.id}">Wypożycz</a>
+                        <a th:if="${element.hireStatus == false}" th:text="${'Wypożyczona do ' + #dates.format(element.hiredTo, 'dd-MM-yyyy')}"></a>
                         <br>
                         <a th:href="${'/books/hires/' + element.id}">Pokaż</a>
                     </td>
