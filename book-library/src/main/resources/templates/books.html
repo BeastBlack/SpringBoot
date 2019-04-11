@@ -10,6 +10,12 @@
     <script th:src="@{/webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
 </head>
 <body>
+    <div th:if="${hireStatus == true}" class="alert alert-success" role="alert">
+        <a th:text="${'Książka została wypożyczona. Data zwrotu: ' + giveBackDate + '.'}"></a>
+    </div>
+    <div th:if="${hireStatus == false}" class="alert alert-danger" role="alert">
+        <a th:text="${'Nie można wypożyczyć książki.'}"></a>
+    </div>
     <div class="container">
         <div class="float-left">
             <p th:text="${'Witaj, ' + user.firstName + ' ' + user.lastName + ' (' + user.username + ')'}"></p>

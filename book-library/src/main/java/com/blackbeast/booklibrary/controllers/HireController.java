@@ -2,8 +2,10 @@ package com.blackbeast.booklibrary.controllers;
 
 import com.blackbeast.booklibrary.domain.Book;
 import com.blackbeast.booklibrary.domain.Hire;
+import com.blackbeast.booklibrary.domain.User;
 import com.blackbeast.booklibrary.services.BookService;
 import com.blackbeast.booklibrary.services.HireService;
+import com.blackbeast.booklibrary.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +24,9 @@ public class HireController {
     @Autowired
     HireService hireService;
 
+    @Autowired
+    UserService userService;
+
     @RequestMapping(value = "/books/hires/{id}", method = RequestMethod.GET)
     public String getHires(Model model, @PathVariable("id") Integer id){
         Book book = bookService.getBook(id);
@@ -32,8 +37,17 @@ public class HireController {
     }
 
     @RequestMapping(value = "/books/hire/{id}", method = RequestMethod.GET)
-    public String hire(@PathVariable("id") Integer id){
-        hireService.save(id);
-        return "redirect:/books";
+    public String hire(Model model, @PathVariable("id") Integer id){
+        Hire hire = hireService.hire(id);
+        List<Book> books = bookService.getBooks();
+        User loggedUser = userService.getLoggedUser();
+        model.addAttribute("books", books);
+        model.addAttribute("user", loggedUser);
+        model.addAttribute("hireStatus", hire != null);
+
+        if(hire != null)
+            model.addAttribute("giveBackDate", hire.getPlannedGiveBackDate());
+
+        return "books";
     }
 }
