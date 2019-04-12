@@ -26,4 +26,6 @@ public interface HireRepository extends JpaRepository<Hire, Long> {
 
     @Query("SELECT h FROM Hire h WHERE h.realGiveBackDate IS NULL AND h.hiredBook.id=:bookId")
     List<Hire> findBookByIdAndNotGiveBack(@Param("bookId") Integer id);
+
+    List<Hire> findByHireUser_Id(Integer id);
 }
