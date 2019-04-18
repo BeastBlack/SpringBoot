@@ -4,6 +4,7 @@ import com.blackbeast.booklibrary.domain.Role;
 import com.blackbeast.booklibrary.domain.User;
 import com.blackbeast.booklibrary.dto.UserDto;
 import com.blackbeast.booklibrary.repository.UserRepository;
+import com.blackbeast.booklibrary.repository.UserRepositoryJpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,10 +12,15 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    UserRepositoryJpa userRepositoryJpa;
 
     public void createUser(String username, String password) {
         if(username != null && password != null) {
@@ -55,5 +61,9 @@ public class UserService {
         userDto.setFullName(user.getFirstName() + " " + user.getLastName());
 
         return userDto;
+    }
+
+    public List<User> getAll(){
+        return userRepositoryJpa.findAll();
     }
 }

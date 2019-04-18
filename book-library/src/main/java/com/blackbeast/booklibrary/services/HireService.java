@@ -63,4 +63,8 @@ public class HireService {
     public List<Hire> getHireListByUserId(Integer id) {
         return hireRepository.findByHireUser_Id(id);
     }
+
+    public void setHireAsGiveBack(Long id) {
+        hireRepository.setHireAsGiveBack(id);
+    }
 }

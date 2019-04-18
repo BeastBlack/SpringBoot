@@ -20,6 +20,9 @@ public class AppStarter implements CommandLineRunner {
     @Autowired
     UserService userService;
 
+    @Autowired
+    HireService hireService;
+
     @Override
     public void run(String... args) throws Exception {
 
