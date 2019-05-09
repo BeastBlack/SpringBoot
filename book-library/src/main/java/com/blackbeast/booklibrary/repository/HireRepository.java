@@ -26,7 +26,7 @@ public interface HireRepository extends JpaRepository<Hire, Long> {
     Hire save(Hire hire);
 
     @Query("SELECT h FROM Hire h WHERE h.realGiveBackDate IS NULL AND h.hiredBook.id=:bookId")
-    List<Hire> findBookByIdAndNotGiveBack(@Param("bookId") Integer id);
+    List<Hire> findHireByIdAndNotGiveBack(@Param("bookId") Integer id);
 
     List<Hire> findByHireUser_Id(Integer id);
 
@@ -34,4 +34,7 @@ public interface HireRepository extends JpaRepository<Hire, Long> {
     @Modifying
     @Query("UPDATE Hire SET realGiveBackDate = CURRENT_TIME WHERE id=:hireId AND realGiveBackDate IS NULL")
     void setHireAsGiveBack(@Param("hireId") Long id);
+
+    @Query("SELECT h FROM Hire h WHERE h.realGiveBackDate IS NULL")
+    List<Hire> findHiresNotGiveBack();
 }

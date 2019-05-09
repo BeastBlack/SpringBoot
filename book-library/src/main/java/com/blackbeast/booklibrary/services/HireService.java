@@ -35,7 +35,7 @@ public class HireService {
     }
 
     public Hire hire(Integer bookId) {
-        boolean isBookAvailable = hireRepository.findBookByIdAndNotGiveBack(bookId).isEmpty();
+        boolean isBookAvailable = hireRepository.findHireByIdAndNotGiveBack(bookId).isEmpty();
 
         if(isBookAvailable) {
             Book book = bookRepository.getBook(bookId);
@@ -66,5 +66,13 @@ public class HireService {
 
     public void setHireAsGiveBack(Long id) {
         hireRepository.setHireAsGiveBack(id);
+    }
+
+    public List<Hire> getNotGiveBackHireList() {
+        return hireRepository.findHiresNotGiveBack();
+    }
+
+    public Hire getHireById(Long id) {
+        return hireRepository.findById(id).get();
     }
 }

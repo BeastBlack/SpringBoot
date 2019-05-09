@@ -92,7 +92,7 @@ public class BookService {
         bookDto.setIsbn(book.getIsbn());
         bookDto.setAuthorName(book.getAuthor().getName());
 
-        List<Hire> hires = hireRepository.findBookByIdAndNotGiveBack(book.getId());
+        List<Hire> hires = hireRepository.findHireByIdAndNotGiveBack(book.getId());
 
         bookDto.setHireStatus(hires.size() > 0);
 
