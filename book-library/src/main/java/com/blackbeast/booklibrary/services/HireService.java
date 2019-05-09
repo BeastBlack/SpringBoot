@@ -67,4 +67,12 @@ public class HireService {
     public void setHireAsGiveBack(Long id) {
         hireRepository.setHireAsGiveBack(id);
     }
+
+    public List<Hire> getHireListNotGiveBack() {
+        return hireRepository.findBookNotGiveBack();
+    }
+
+    public Hire getHireById(Long id) {
+        return hireRepository.findById(id).get();
+    }
 }
