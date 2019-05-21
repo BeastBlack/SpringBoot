@@ -1,7 +1,6 @@
 package com.blackbeast.booklibrary.controllers;
 
 import com.blackbeast.booklibrary.domain.Book;
-import com.blackbeast.booklibrary.domain.User;
 import com.blackbeast.booklibrary.dto.BookDto;
 import com.blackbeast.booklibrary.dto.UserDto;
 import com.blackbeast.booklibrary.services.BookService;
