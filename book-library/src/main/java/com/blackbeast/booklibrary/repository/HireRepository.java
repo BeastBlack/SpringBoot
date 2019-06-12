@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
@@ -37,4 +38,7 @@ public interface HireRepository extends JpaRepository<Hire, Long> {
 
     @Query("SELECT h FROM Hire h WHERE h.realGiveBackDate IS NULL")
     List<Hire> findHiresNotGiveBack();
+
+    @Query("SELECT h FROM Hire h WHERE h.realGiveBackDate > h.plannedGiveBackDate AND h.realGiveBackDate IS NOT NULL AND h.hireUser.id=:id")
+    List<Hire> findHiresExpiredByUserId(Integer id);
 }

@@ -13,6 +13,8 @@
 <div class="container">
     <div class="float-left">
         <p th:text="${'Wypożyczenia użytkownika: ' + user.fullName + ' (' + user.username + ').'}"></p>
+        <p th:text="${'Twoje saldo: ' + #numbers.formatDecimal(payment - penalty, 1, 'DEFAULT', 2, 'DEFAULT') + ' PLN.'}"></p>
+        <p th:text="${'Suma wpłat: ' + #numbers.formatDecimal(payment, 1, 'DEFAULT', 2, 'DEFAULT') + ' PLN. Suma należności: ' + #numbers.formatDecimal(penalty, 1, 'DEFAULT', 2, 'DEFAULT') + ' PLN.'}"></p>
     </div>
     <div class="float-right">
         <form action="#" th:action="@{/logout}" method="post">
