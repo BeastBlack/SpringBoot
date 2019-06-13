@@ -64,7 +64,7 @@ public class HireController {
         UserDto loggedUserDto = userService.convert(loggedUser);
         List<Hire> hires = hireService.getHireListByUserId(loggedUser.getId());
         BigDecimal payment = paymentService.getPaymentSumByUser(loggedUser.getId());
-        BigDecimal penalty = paymentService.getPentalySumByUser(loggedUser.getId());
+        BigDecimal penalty = paymentService.getPenaltySumByUser(loggedUser.getId());
 
         model.addAttribute("user", loggedUserDto);
         model.addAttribute("hires", hires);

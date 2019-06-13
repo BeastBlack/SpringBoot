@@ -1,6 +1,7 @@
 package com.blackbeast.booklibrary.domain;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -20,6 +21,8 @@ public class Hire {
     @ManyToOne
     @JoinColumn(name = "bookId")
     private Book hiredBook;
+
+    private BigDecimal dailyPenalty;
 
     public Long getId() {
         return id;
@@ -67,5 +70,13 @@ public class Hire {
 
     public void setHiredBook(Book hiredBook) {
         this.hiredBook = hiredBook;
+    }
+
+    public BigDecimal getDailyPenalty() {
+        return dailyPenalty;
+    }
+
+    public void setDailyPenalty(BigDecimal dailyPenalty) {
+        this.dailyPenalty = dailyPenalty;
     }
 }
