@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +30,9 @@ public class HireService {
 
     @Value("${library.hire.giveBackDays}")
     Integer giveBackDays;
+
+    @Value("${library.hire.dailyPenalty}")
+    BigDecimal dailyPenalty;
 
     public List<Hire> getHiresByBookId(Integer id) {
         return hireRepository.findByHiredBook_Id(id);
@@ -51,6 +55,8 @@ public class HireService {
 
                 hire.setHireDate(hireDate);
                 hire.setPlannedGiveBackDate(plannedGiveBackDate);
+
+                hire.setDailyPenalty(dailyPenalty);
 
                 hireRepository.save(hire);
                 return hire;
