@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class HireController {
@@ -79,9 +80,11 @@ public class HireController {
         User loggedUser = userService.getLoggedUser();
         UserDto loggedUserDto = userService.convert(loggedUser);
         List<Hire> hires = hireService.getNotGiveBackHireList();
+        Map<User, BigDecimal> penalties = paymentService.getUsersWithNegativeSaldo();
 
         model.addAttribute("user", loggedUserDto);
         model.addAttribute("hires", hires);
+        model.addAttribute("penalties", penalties);
         model.addAttribute("showMessage", Boolean.FALSE);
 
         return "hires-admin";

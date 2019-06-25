@@ -66,4 +66,8 @@ public class UserService {
     public List<User> getAll(){
         return userRepositoryJpa.findAll();
     }
+
+    public User getUser(Integer id) {
+        return userRepositoryJpa.getOne(id);
+    }
 }
