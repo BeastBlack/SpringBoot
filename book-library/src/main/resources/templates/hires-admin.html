@@ -10,8 +10,11 @@
     <script th:src="@{/webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<div th:if="${showMessage == true}" class="alert alert-success" role="alert">
+<div th:if="${showMessage == 'GIVEBACK'}" class="alert alert-success" role="alert">
     <a th:text="${'Książka ' + bookName + ' została zwrócona.'}"></a>
+</div>
+<div th:if="${showMessage == 'PAY'}" class="alert alert-success" role="alert">
+    <a th:text="${'Należności zostały spłacone.'}"></a>
 </div>
 <div class="container">
     <div class="float-left">
@@ -37,6 +40,20 @@
             <td th:text="${#dates.format(hire.hireDate, 'dd-MM-yyyy')}"></td>
             <td th:text="${#dates.format(hire.plannedGiveBackDate, 'dd-MM-yyyy')}"></td>
             <td><a th:href="${'/admin/hires/giveback/' + hire.id}">Zwróć</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="table">
+        <thead class="thead-dark">
+            <th>Wypożyczający</th>
+            <th>Saldo</th>
+            <th>Akcja</th>
+        </thead>
+        <tbody th:each="instance : ${sanctionUsers}">
+        <tr>
+            <td th:text="${instance.key.firstName + ' ' + instance.key.lastName}"></td>
+            <td th:text="${#numbers.formatDecimal(instance.value, 1, 'DEFAULT', 2, 'DEFAULT') + ' PLN'}"></td>
+            <td><a th:href="${'/admin/hires/pay/' + instance.key.id}">Spłać</a></td>
         </tr>
         </tbody>
     </table>
