@@ -16,12 +16,14 @@ public class UserRepository {
     private EntityManager em;
 
     @Transactional
-    public void addUser(User user) {
+    public void saveUser(User user) {
         if(user != null) {
             boolean userExists = getUser(user.getUsername()) != null;
 
             if(!userExists)
                 em.persist(user);
+            else
+                em.merge(user);
         }
     }
 

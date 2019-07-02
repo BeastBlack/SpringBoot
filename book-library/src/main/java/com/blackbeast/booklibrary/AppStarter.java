@@ -1,7 +1,5 @@
 package com.blackbeast.booklibrary;
 
-import com.blackbeast.booklibrary.domain.Author;
-import com.blackbeast.booklibrary.domain.Book;
 import com.blackbeast.booklibrary.services.BookService;
 import com.blackbeast.booklibrary.services.HireService;
 import com.blackbeast.booklibrary.services.UserService;
@@ -28,7 +26,7 @@ public class AppStarter implements CommandLineRunner {
 
     }
 
-    public void init(){
+    /*public void init(){
         Book book = new Book("Ogniem i mieczem", 2000, "PWN", "78535635634", new Author("Henryk Sienkiewicz"));
         bookService.saveBook(book);
 
@@ -51,5 +49,5 @@ public class AppStarter implements CommandLineRunner {
 
         userService.createUser("dev", "pass");
         userService.addRoleToUser("dev", "DEV");
-    }
+    }*/
 }

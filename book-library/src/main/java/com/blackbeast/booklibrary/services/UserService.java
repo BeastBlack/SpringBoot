@@ -22,13 +22,27 @@ public class UserService {
     @Autowired
     UserRepositoryJpa userRepositoryJpa;
 
-    public void createUser(String username, String password) {
-        if(username != null && password != null) {
-            PasswordEncoder pe = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    public boolean userExists(String username) {
+        return getUser(username) != null;
+    }
 
-            User user = new User(username, pe.encode(password));
-            userRepository.addUser(user);
-        }
+    public void updateUser(User user) {
+        User fullUser = getUser(user.getUsername());
+        fullUser.setFirstName(user.getFirstName());
+        fullUser.setLastName(user.getLastName());
+
+        PasswordEncoder pe = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        fullUser.setPassword(pe.encode(user.getPassword()));
+        userRepository.saveUser(fullUser);
+    }
+
+    public void registerUser(User user) {
+        PasswordEncoder pe = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        user.setPassword(pe.encode(user.getPassword()));
+        user.setEnabled(true);
+        userRepository.saveUser(user);
+
+        addRoleToUser(user.getUsername(), "USER");
     }
 
     public void addRoleToUser(String username, String roleName){
