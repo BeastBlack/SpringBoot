@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Uprawnienia</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}" />
+
+    <script th:src="@{/webjars/jquery/3.3.1-1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container">
+    <div class="float-left">
+        <p th:text="${'Edytujesz uprawnienia Użytkownika: ' + user.firstName + ' ' + user.lastName + ' (' + user.username + ').'}"></p>
+    </div>
+    <div class="float-right">
+        <form action="#" th:action="@{/logout}" method="post">
+            <button type="submit" class="btn btn-primary">Wyloguj</button>
+        </form>
+    </div>
+    <table class="table">
+        <thead class="thead-dark">
+            <th>Administrator</th>
+            <th>Użytkownik</th>
+            <th>Dev</th>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="table-success" th:if="${isAdmin}"><a>TAK | </a><a th:href="${'/admin/users/permissions/revoke/admin/' + user.id}">Odbierz uprawnienia</a></td>
+            <td class="table-danger" th:if="${!isAdmin}"><a>NIE | </a><a th:href="${'/admin/users/permissions/grant/admin/' + user.id}">Nadaj uprawnienia</a></td>
+            <td class="table-success" th:if="${isUser}"><a>TAK | </a><a th:href="${'/admin/users/permissions/revoke/user/' + user.id}">Odbierz uprawnienia</a></td>
+            <td class="table-danger" th:if="${!isUser}"><a>NIE | </a><a th:href="${'/admin/users/permissions/grant/user/' + user.id}">Nadaj uprawnienia</a></td>
+            <td class="table-success" th:if="${isDev}"><a>TAK | </a><a th:href="${'/admin/users/permissions/revoke/dev/' + user.id}">Odbierz uprawnienia</a></td>
+            <td class="table-danger" th:if="${!isDev}"><a>NIE | </a><a th:href="${'/admin/users/permissions/grant/dev/' + user.id}">Nadaj uprawnienia</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="row">
+        <a th:href="${'/admin/users'}">Wróć</a>
+    </div>
+</div>
+</body>
+</html>

@@ -3,6 +3,7 @@ package com.blackbeast.booklibrary.services;
 import com.blackbeast.booklibrary.domain.Role;
 import com.blackbeast.booklibrary.domain.User;
 import com.blackbeast.booklibrary.dto.UserDto;
+import com.blackbeast.booklibrary.repository.RoleRepository;
 import com.blackbeast.booklibrary.repository.UserRepository;
 import com.blackbeast.booklibrary.repository.UserRepositoryJpa;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class UserService {
 
     @Autowired
     UserRepositoryJpa userRepositoryJpa;
+
+    @Autowired
+    RoleRepository roleRepository;
 
     public boolean userExists(String username) {
         return getUser(username) != null;
@@ -42,14 +46,18 @@ public class UserService {
         user.setEnabled(true);
         userRepository.saveUser(user);
 
-        addRoleToUser(user.getUsername(), "USER");
+        addRoleToUser(user.getId(), "USER");
     }
 
-    public void addRoleToUser(String username, String roleName){
-        if(username != null && roleName != null) {
-            Role role = new Role(roleName);
-            userRepository.addRoleToUser(username, role);
-        }
+    public void addRoleToUser(Integer userId, String roleName){
+        Role role = new Role();
+        role.setUser(getUser(userId));
+        role.setName(roleName);
+        roleRepository.save(role);
+    }
+
+    public void removeRoleFromUser(Integer userId, String roleName){
+        roleRepository.deleteByUserIdAndName(userId, roleName);
     }
 
     public User getUser(String username) {
@@ -79,5 +87,20 @@ public class UserService {
 
     public List<User> getAll(){
         return userRepositoryJpa.findAll();
+    }
+
+    public Boolean hasRoles(Integer userId, String roleName) {
+        User user = userRepositoryJpa.getOne(userId);
+
+        if(user != null)
+            for(Role role : user.getRoles())
+                if(role.getName().equals(roleName))
+                    return true;
+
+        return false;
+    }
+
+    public User getUser(Integer userId) {
+        return userRepositoryJpa.getOne(userId);
     }
 }

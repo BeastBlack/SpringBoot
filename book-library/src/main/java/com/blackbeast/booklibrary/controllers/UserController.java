@@ -1,15 +1,19 @@
 package com.blackbeast.booklibrary.controllers;
 
+import com.blackbeast.booklibrary.domain.Book;
 import com.blackbeast.booklibrary.domain.User;
 import com.blackbeast.booklibrary.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -46,6 +50,7 @@ public class UserController {
         }else {
             if(this.editMode) {
                 userService.updateUser(user);
+                this.editMode = Boolean.FALSE;
                 return "redirect:/books";
             } else
                 if(userService.userExists(user.getUsername()))
@@ -65,5 +70,41 @@ public class UserController {
         this.editMode = Boolean.TRUE;
 
         return "user";
+    }
+
+    @RequestMapping(value = "/admin/users", method = RequestMethod.GET)
+    public String showUsers(Model model){
+        List<User> users = userService.getAll();
+        User user = userService.getLoggedUser();
+
+        model.addAttribute("users", users);
+        model.addAttribute("loggedUser", user);
+
+        return "users";
+    }
+
+    @RequestMapping(value = "/admin/users/permissions/{id}", method = RequestMethod.GET)
+    public String showPermission(@PathVariable("id") Integer id, Model model){
+        User user = userService.getUser(id);
+
+        model.addAttribute("user", user);
+        model.addAttribute("isAdmin", userService.hasRoles(id, "ADMIN"));
+        model.addAttribute("isUser", userService.hasRoles(id, "USER"));
+        model.addAttribute("isDev", userService.hasRoles(id, "DEV"));
+
+        return "permissions";
+    }
+
+    @RequestMapping(value = "/admin/users/permissions/{operation}/{roleName}/{id}", method = RequestMethod.GET)
+    public String managePermission(@PathVariable("id") Integer userId, @PathVariable("roleName") String roleName,
+                                  @PathVariable("operation") String operation) {
+        if(operation.equals("grant"))
+            userService.addRoleToUser(userId, roleName.toUpperCase());
+
+        if(operation.equals("revoke"))
+            userService.removeRoleFromUser(userId, roleName.toUpperCase());
+
+
+        return "redirect:/admin/users/permissions/" + userId;
     }
 }
