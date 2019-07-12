@@ -14,6 +14,10 @@
     <a th:text="${'Konto użytkownika zostało pomyślnie zarejestrowane.'}"></a>
     <a th:href="${'/login'}">Teraz możesz się zalogować.</a>
 </div>
+<div th:if="${showMessage == 'EDIT_OK'}" class="alert alert-success" role="alert">
+    <a th:text="${'Konto użytkownika zostało pomyślnie zmodyfikowanie.'}"></a>
+    <a th:href="${'/books'}">Powrót do aplikacji.</a>
+</div>
 <div th:if="${showMessage == 'REGISTER_EXISTS'}" class="alert alert-warning" role="alert">
     <a th:text="${'Użytkownik o podanym loginie jest już zarejestrowany. Wybierz inny login.'}"></a>
 </div>
@@ -23,14 +27,14 @@
 
         <div class="form-group">
             <label class="control-label">Login:</label>
-            <input type="text" class="form-control" th:field="*{username}" th:if="${user.username == null}"/>
-            <input type="text" class="form-control" th:field="*{username}" th:if="${user.username != null}"/>
+            <input type="text" class="form-control" th:field="*{username}" th:if="${user.id == null}"/>
+            <input type="text" class="form-control" th:field="*{username}" th:if="${user.id != null}" readonly/>
             <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"/>
         </div>
 
         <div class="form-group">
             <label class="control-label">Hasło:</label>
-            <input type="password" class="form-control" th:field="*{password}" value=""/>
+            <input type="password" class="form-control" th:field="*{password}"/>
             <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"/>
         </div>
 

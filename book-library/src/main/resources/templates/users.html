@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Użytkownicy</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}" />
+
+    <script th:src="@{/webjars/jquery/3.3.1-1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container">
+    <div class="float-left">
+        <p th:text="${'Witaj, ' + loggedUser.firstName + ' ' + loggedUser.lastName + ' (' + loggedUser.username + ').'}"></p>
+    </div>
+    <div class="float-right">
+        <form action="#" th:action="@{/logout}" method="post">
+            <button type="submit" class="btn btn-primary">Wyloguj</button>
+        </form>
+    </div>
+    <table class="table">
+        <thead class="thead-dark">
+        <th>Login</th>
+        <th>Imię</th>
+        <th>Nazwisko</th>
+        <th>Uprawnienia</th>
+        </thead>
+        <tbody th:each="user : ${users}">
+        <tr>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td><a th:href="${'/admin/users/permissions/' + user.id}">Edytuj</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="row">
+        <a th:href="${'/books'}">Wróć</a>
+    </div>
+</div>
+</body>
+</html>
